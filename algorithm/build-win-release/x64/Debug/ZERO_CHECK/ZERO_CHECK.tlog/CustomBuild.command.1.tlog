@@ -1,0 +1,10 @@
+^D:\IAD\ДИСКРЕТНЫЕ МОДЕЛИ И СЛОЖНОСТЬ АЛГОРИТМОВ\SHORTEST-PATH-BY-HEAPS\ALGORITHM\BUILD-WIN-RELEASE\CMAKEFILES\616F841D63AC811CE370EE261E6B77C3\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SD:/IAD/Дискретные модели и сложность алгоритмов/shortest-path-by-heaps/algorithm" "-BD:/IAD/Дискретные модели и сложность алгоритмов/shortest-path-by-heaps/algorithm/build-win-release" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "D:/IAD/Дискретные модели и сложность алгоритмов/shortest-path-by-heaps/algorithm/build-win-release/shortest-path-by-heaps.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

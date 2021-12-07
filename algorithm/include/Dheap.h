@@ -12,11 +12,9 @@ private:
   size_t heap_size;
 
 public:
-  // Dheap(M heap[], size_t capacity, size_t D) {
   Dheap(size_t capacity, size_t D) {
     this->heap_size = 0;
     this->id2pos = new M[capacity];
-    // this->heap = heap;
     this->capacity = capacity;
     this->D = D;
   }
@@ -34,15 +32,11 @@ public:
   int get_min_child(int node) {
     int left_child = get_left_child(node);
     int right_child = get_right_child(node);
-    // std::cout << "  ~~ left: " << left_child << " right: " << right_child <<
     int smallest = node;
-    // if (left_child >= capacity) {
     if (left_child > heap_size) {
-      // std::cout << "    left dont exists, heap size: " << heap_size <<
       return -1;
     }
     for (int i = left_child; i <= right_child; i++) {
-      // if (i < capacity && heap[smallest] > heap[i])
       if (i <= heap_size && heap[smallest].first > heap[i].first) {
         smallest = i;
       }
@@ -51,12 +45,10 @@ public:
   }
 
   void dive(int node) {
-    // std::cout << "DIVE NODE: " << node;
     int smallest = get_min_child(node);
     if (smallest == -1)
       return;
     if (smallest != node) {
-      // std::cout << std::endl << "SWAP! " << node <<" and " << smallest <<
       std::swap(heap[node], heap[smallest]);
       std::swap(id2pos[heap[node].second], id2pos[heap[smallest].second]);
       dive(smallest);
@@ -64,7 +56,6 @@ public:
   }
 
   void emersion(int node) {
-    // std::cout << "EMERSE NODE: " << node;
     int parent = get_parent(node);
     if (parent == -1)
       return;
@@ -98,7 +89,6 @@ public:
     std::pair<M, int> root = heap[0];
     heap[0] = heap[heap_size - 1];
     heap_size--;
-    // capacity--;
     dive(0);
     return root;
   }

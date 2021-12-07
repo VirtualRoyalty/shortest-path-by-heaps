@@ -9,11 +9,8 @@
 void write_csv(
     std::string filename,
     std::vector<std::pair<std::string, std::vector<std::string>>> dataset) {
-
-  // Create an output filestream object
   std::ofstream myFile(filename);
 
-  // Send column names to the stream
   for (int j = 0; j < dataset.size(); ++j) {
     myFile << dataset.at(j).first;
     if (j != dataset.size() - 1)
@@ -30,8 +27,6 @@ void write_csv(
     }
     myFile << "\n";
   }
-
-  // Close the file
   myFile.close();
 }
 
@@ -43,7 +38,6 @@ std::vector<std::vector<std::string>> read_csv(std::string filename) {
 
   if (!myFile.is_open())
     throw std::runtime_error("Could not open file");
-
   // Helper vars
   std::vector<std::string> edge;
   std::string line, colname;
@@ -65,9 +59,7 @@ std::vector<std::vector<std::string>> read_csv(std::string filename) {
     }
   }
 
-  // Close file
   myFile.close();
-
   return result;
 };
 
@@ -99,6 +91,5 @@ construct_graph_from_csv(std::string filename) {
   }
 
   myFile.close();
-
   return result;
 };
