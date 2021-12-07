@@ -49,7 +49,7 @@ class GraphGenerator:
         dist = np.linalg.norm(np.array(list(A)) - np.array(list(B)))
         return round(dist, decimals)
 
-    def generate_pseudo_real_graph(self, w_range=(0, 100),
+    def generate_pseudo_real_graph(self, w_range=(1, 100),
                                    seed=random.randint(0, 1000),
                                    verbose=True, connectivity=True,
                                    xOy_range=(-1000, 1000)):
@@ -96,18 +96,6 @@ class GraphGenerator:
         plt.show()
         return
 
-    # @staticmethod
-    # def save_to_file(graph, filename):
-    #     info = ' '.join(map(str, (graph.number_of_nodes(), graph.number_of_edges())))
-    #     lines = [info + '\n']
-    #     for node_i, node_j, data in graph.edges(data=True):
-    #         print(node_i, node_j, data['weight'])
-    #         line = ' '.join(map(str, (node_i, node_j, data['weight']))) + '\n'
-    #         lines.append(line)
-    #     with open(filename, 'w') as file:
-    #         file.writelines(lines)
-    #         file.close()
-
     @staticmethod
     def save_to_file(graph, filename):
         lines = []
@@ -122,12 +110,21 @@ class GraphGenerator:
             file.writelines(lines)
             file.close()
 
+    @staticmethod
+    def save_sp_dist(dist, filename):
+        _dist = [dist[i] for i in range(len(dist))]
+        with open(filename, 'w') as file:
+            file.writelines(' '.join(map(str, _dist)))
+            file.close()
+
 
 if __name__ == '__main__':
     N = 15
-    gen = GraphGenerator(max_nodes=N, max_edges=N*N/3)
-    G = gen.generate_weighted_graph(w_range=(14, 1000))
-    pred, dist = nx.dijkstra_predecessor_and_distance(G, 5, weight='weight')
+    gen = GraphGenerator(max_nodes=N, max_edges=10*N)
+    G = gen.generate_weighted_graph(w_range=(0, 100))
+    pred, dist = nx.dijkstra_predecessor_and_distance(G, 0, weight='weight')
     for i in range(N):
         print(f"{i}\t{dist[i]}")
-    gen.save_to_file(G, '../benchmarks/test.txt')
+    i = 3
+    gen.save_to_file(G, f'../benchmarks/unit/unit_test{i}.txt')
+    gen.save_sp_dist(dist, f'../benchmarks/unit/unit_test{i}_answer.txt')

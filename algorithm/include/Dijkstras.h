@@ -44,20 +44,8 @@ public:
       int u = minDistance();
       short_path_set[u] = true;
 
-      // std::cout << "\n\nDIST: ";
-      // for(int i = 0; i < number_of_nodes; i++){
-      //   std::cout << dist[i] << " ";
-      // }
-      // std::cout << "\nBOOL: ";
-      // for(int i = 0; i < number_of_nodes; i++){
-      //   std::cout << short_path_set[i] << " ";
-      // }
-      // std::cout << "\n";
-
       for (int v = 0; v < graph[u].size(); v++) {
         int node_v = graph[u][v].first;
-        // std::cout << "\nEDGE: " << "( " << u <<" " << node_v <<")";
-        // std::cout << "bool: " << node_v << ": " << short_path_set[node_v];
         if (!short_path_set[node_v] && dist[u] != MAX_FLOAT) {
           if ((dist[u] + graph[u][v].second) <= dist[node_v])
             dist[node_v] = dist[u] + graph[u][v].second;
@@ -70,5 +58,11 @@ public:
     std::cout << "\n\nVertex \t Distance from Source" << std::endl;
     for (int i = 0; i < number_of_nodes; i++)
       std::cout << i << " \t\t" << dist[i] << std::endl;
+  }
+
+  void printSolutionRaw() {
+    for (int i = 0; i < number_of_nodes; i++)
+      std::cout << dist[i] << " ";
+    // std::cout << "\n";
   }
 };
