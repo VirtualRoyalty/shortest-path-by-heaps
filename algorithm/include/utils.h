@@ -1,6 +1,6 @@
 #pragma once
 
-#define ATTEMPTS 2
+#define ATTEMPTS 3
 #define BENCHMARKS "../benchmarks/benchmarks.txt"
 #define OUTFILE "../results/performance.csv"
 

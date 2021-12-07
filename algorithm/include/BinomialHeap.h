@@ -17,15 +17,12 @@ private:
   size_t heap_size;
   size_t nodes = 0;
   std::vector<std::vector<Node<M> *>> heap;
-  // size_t k;
 
 public:
   BinomialHeap(size_t capacity) {
     this->heap_size = 0;
-    // this->id2pos = new M[capacity];
     this->heap.resize(2 * std::log2(capacity));
     this->capacity = capacity;
-    // this->k = std::log2(capacity) + 1;
   }
 
   void insert_pair(std::pair<M, int> x) {
@@ -56,9 +53,6 @@ public:
     Node<M> *res = *m;
     *m = (*m)->next;
     UnionHeaps(root, res->child);
-    // std::cout << "MIN BIN_HEAP: ";
-    // print_heap();
-    // std::cout << "\n";
     nodes--;
     return res->x;
   }
@@ -97,21 +91,12 @@ public:
     Node<M> *new_root_end = NULL;
     size_t k = std::log2(nodes) + 2;
     for (int i = 0; i < k; i++) {
-      // std::cout << "\nK_ITER:" << i << "\n";
-      // std::cout << " VECTOR: ";
-      // for (int i = 0; i < k; i++) {
-      //   std::cout << i << ":" << heap[i].size() << "; ";
-      // }
-      // if ((int)heap[i].size() == 0)
-      //   break;
       while ((int)heap[i].size() >= 2) {
-        // std::cout << "\nBEFORE HEAP [i] SIZE: " << (int)heap[i].size() << "
-        // ";
+
         heap[i + 1].push_back(Join(heap[i][(int)heap[i].size() - 1],
                                    heap[i][(int)heap[i].size() - 2]));
         heap[i].pop_back();
         heap[i].pop_back();
-        // std::cout << "AFTER HEAP [i] SIZE: " << (int)heap[i].size() << "\n";
       }
       if ((int)heap[i].size() == 1) {
         heap[i][0]->next = NULL;
@@ -157,10 +142,6 @@ public:
       return;
     if (parent->x.first > node->x.first) {
       swap(parent->x, node->x);
-      // std::pair<M, int> tmp;
-      // tmp = node->x;
-      // node->x = parent->x;
-      // parent->x = tmp;
       emersion(parent);
     }
   }
