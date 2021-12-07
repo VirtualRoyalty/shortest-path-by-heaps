@@ -24,8 +24,8 @@ public:
 
   void run(int source) {
 
-    BinomialHeap binom_heap(number_of_nodes);
-    binom_heap.insert_pair(std::make_pair((float)0, source));
+    BinomialHeap<int> binom_heap(number_of_nodes);
+    binom_heap.insert_pair(std::make_pair(0, source));
     dist[source] = 0;
 
     while (binom_heap.size() > 0) {
@@ -35,9 +35,9 @@ public:
         int new_weight = dist[u] + graph[u][v].second;
         if (new_weight <= dist[node_v]) {
           if (dist[node_v] == MAX_INT) {
-            binom_heap.insert_pair(std::make_pair((float)new_weight, node_v));
+            binom_heap.insert_pair(std::make_pair(new_weight, node_v));
           } else {
-            binom_heap.decrease_key(node_v, (float)new_weight);
+            binom_heap.decrease_key(node_v, new_weight);
           }
           dist[node_v] = new_weight;
         }

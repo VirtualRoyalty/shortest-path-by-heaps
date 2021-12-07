@@ -13,6 +13,9 @@
 #include "DijkstrasDHeap.h"
 #include "utils.h"
 
+using namespace std;
+using namespace std::chrono;
+
 int main() {
   std::cout << "START..." << '\n';
   std::string filepath = "../benchmarks/test.txt";
@@ -20,12 +23,7 @@ int main() {
   std::vector<std::vector<std::pair<int, float>>> graph;
 
   graph = construct_graph_from_csv(filepath);
-  // for (int i = 0; i < graph.size(); i++) {
-  //   for (int j = 0; j < graph[i].size(); j++)
-  //     std::cout << " (" << graph[i][j].first << " " << graph[i][j].second <<
-  //     ") ";
-  //   std::cout << std::endl;
-  //  }
+
   auto start = high_resolution_clock::now();
   Dijkstras algorithm(graph);
   algorithm.run(5);
@@ -35,21 +33,20 @@ int main() {
   cout << "Djikstra time: " << duration << " microsec" << endl;
 
   start = high_resolution_clock::now();
+  DijkstrasBinomialHeap algorithm_binomheap(graph);
+  algorithm_binomheap.run(5);
+  // algorithm_binomheap.printSolution();
+  stop = high_resolution_clock::now();
+  duration = duration_cast<microseconds>(stop - start).count();
+  cout << "Djikstra binomial-heap time: " << duration << " microsec" << endl;
+
+  start = high_resolution_clock::now();
   DijkstrasDheap algorithm_dheap(graph);
   algorithm_dheap.run(5);
   // algorithm_dheap.printSolution();
   stop = high_resolution_clock::now();
   duration = duration_cast<microseconds>(stop - start).count();
   cout << "Djikstra 3-heap time: " << duration << " microsec" << endl;
-
-  start = high_resolution_clock::now();
-  std::cout << "\nBINOM:";
-  DijkstrasBinomialHeap algorithm_binomheap(graph);
-  algorithm_binomheap.run(5);
-  stop = high_resolution_clock::now();
-  duration = duration_cast<microseconds>(stop - start).count();
-  cout << "Djikstra binomial-heap time: " << duration << " microsec" << endl;
-  // algorithm_binomheap.printSolution();
 
   std::cout << "SIZE:" << graph.size() << '\n';
   std::cout << "END..." << '\n';
